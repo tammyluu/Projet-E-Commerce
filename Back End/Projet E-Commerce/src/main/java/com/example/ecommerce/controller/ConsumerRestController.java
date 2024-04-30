@@ -4,6 +4,7 @@ import com.example.ecommerce.dto.ConsumerDTO;
 import com.example.ecommerce.entity.Consumer;
 import com.example.ecommerce.service.IConsumerService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,21 +12,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ConsumerRestController {
 
-
     private final IConsumerService consumerService;
 
-    @PostMapping("/consumer")
-    public Consumer addConsumer(@RequestBody Consumer consumer) {
+    @PostMapping("/consumer")// http://localhost:8090/api/consumer
+    public ResponseEntity<Consumer> addConsumer(@RequestBody Consumer consumer) {
         return consumerService.createConsumer(consumer);
     }
 
-    @GetMapping("/login")
-    public Consumer login(@RequestBody ConsumerDTO consumerDTO) {
+    @GetMapping("/login")// http://localhost:8090/api/login
+    public ResponseEntity<Consumer> login(@RequestBody ConsumerDTO consumerDTO) {
         return consumerService.logInConsumer(consumerDTO.getEmail(), consumerDTO.getPassword());
     }
 
-    @PutMapping("/consumer")
-    public Consumer updateConsumer(@RequestBody Consumer consumer) {
+    @PutMapping("/consumer")// http://localhost:8090/api/consumer
+    public ResponseEntity<Consumer> updateConsumer(@RequestBody Consumer consumer) {
         return consumerService.updateConsumer(consumer);
     }
 }

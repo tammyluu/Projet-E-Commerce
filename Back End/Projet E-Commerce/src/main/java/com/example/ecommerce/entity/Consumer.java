@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,6 +35,6 @@ public class Consumer {
     private String address ;
 
     @OneToMany(mappedBy = "consumer")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
 }

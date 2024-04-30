@@ -2,6 +2,7 @@ package com.example.ecommerce.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,8 +32,10 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "consumer_id")
+    @JsonIgnore
     private Consumer consumer;
 
     @OneToMany(mappedBy = "order")
+    @JsonIgnore
     private List<Cart> cart;
 }
