@@ -22,6 +22,9 @@ public class Product {
     private String name;
 
     private Double price;
+    @Lob
+    @Column(name = "photo")
+    private  byte[] photo;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
