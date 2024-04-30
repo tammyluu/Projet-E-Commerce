@@ -51,14 +51,7 @@ public class ProductController {
         }
         return ResponseEntity.ok(products);
     }
-    @GetMapping("/byPrice")
-    public ResponseEntity<List<Product>> getProductsByPrice(@RequestParam double price) {
-        List<Product> products = productService.getAllProductsByPrice(price);
-        if (products.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(products);
-    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         product.setId(id);

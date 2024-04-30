@@ -75,9 +75,7 @@ public class ProductServiceImpl implements IBaseService<Product> {
     public List<Product> getAllProductsByName(String name) {
         return productRepository.findAllProductByNameContainingIgnoreCase(name);
     }
-    public List<Product> getAllProductsByPrice(Double price) {
-        return productRepository.findAllProductByPriceEqualsIgnoreCase(price);
-    }
+
     public Product addProductByCategory(ProductDto Dto, Long categoryId) {
         Category category = categoryRepository.findCategoriesById(categoryId);
         Product existingProduct = productRepository.findProductById(Dto.getId());
