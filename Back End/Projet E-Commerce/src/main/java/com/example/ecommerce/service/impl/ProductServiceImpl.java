@@ -30,7 +30,6 @@ public class ProductServiceImpl implements IBaseService<Product> {
                 .builder()
                 .name(dto.getName())
                 .price(dto.getPrice())
-                .photo()
                 .build();
         return productRepository.save(product);
     }
