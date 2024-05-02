@@ -18,7 +18,8 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements IBaseService<Product> {
 
-   
+    private final IProductRepository productRepository;
+    private final ICategoryRepository categoryRepository;
     @Autowired
     private IProductRepository productRepository;
     @Autowired
@@ -27,6 +28,14 @@ public class ProductServiceImpl implements IBaseService<Product> {
 
 
     public  Product save (ProductDto dto){
+<<<<<<< HEAD
+        Product product = Product
+                .builder()
+                .name(dto.getName())
+                .price(dto.getPrice())
+                .build();
+        return productRepository.save(product);
+=======
 
             Product newProduct = Product
                     .builder()
@@ -36,6 +45,7 @@ public class ProductServiceImpl implements IBaseService<Product> {
                     .build();
             return productRepository.save(newProduct);
 
+>>>>>>> 3ae5738700ff65bf45cd9a4e4b2879dd11e45898
     }
 
 
