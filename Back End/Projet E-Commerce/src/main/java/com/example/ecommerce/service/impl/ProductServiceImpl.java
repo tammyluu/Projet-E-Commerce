@@ -91,4 +91,8 @@ public class ProductServiceImpl implements IBaseService<Product> {
 
     }
 
+    public List<Product> getAllProductsByCategoryId(Long categoryId) {
+        return productRepository.findAllByCategory_Id(categoryId);
+    }
+
 }
