@@ -9,6 +9,7 @@ import com.example.ecommerce.repository.IProductRepository;
 import com.example.ecommerce.service.IBaseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
@@ -58,7 +59,12 @@ public class ProductServiceImpl implements IBaseService<Product> {
             existProduct.setName(e.getName());
             existProduct.setPrice(e.getPrice());
             existProduct.setPhoto(e.getPhoto());
-            return productRepository.save(existProduct);
+            try {
+                return productRepository.save(existProduct);
+            }catch (DataAccessException ex){
+                ex.printStackTrace();
+            }
+
         }
         return null;
     }

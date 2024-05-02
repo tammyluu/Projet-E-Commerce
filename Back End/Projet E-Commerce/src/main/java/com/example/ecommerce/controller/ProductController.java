@@ -45,32 +45,11 @@ public class ProductController {
         }
     }
 
-    @PostMapping()
-    public ResponseEntity<Product> createProduct(@RequestBody ProductDto dto, @RequestParam("image") MultipartFile file) throws IOException {
+    @PostMapping(value = "/add", consumes = "multipart/form-data")
+    public ResponseEntity<Product> createProduct(@RequestParam("name") String name,
+                                                 @RequestParam("price") Double price,
+                                                 @RequestParam("file") MultipartFile file) throws IOException {
 
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String uploadDir = "products-photos/";
-        FileUploadUtil.saveFile(uploadDir,fileName,file);
-        Product newProduct = productService.save(dto);
-        newProduct.setPhoto(fileName);
-        return ResponseEntity.ok(newProduct);
-    }
-
-
-   /* @PostMapping(value = "/addProductByCategory/{categoryId}", consumes = "multipart/form-data")
-    public ResponseEntity<Product> addProductByCategory(@RequestBody ProductDto dto, @PathVariable Long categoryId, @RequestParam("image") MultipartFile file) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String uploadDir = "products-photos/";
-        FileUploadUtil.saveFile(uploadDir,fileName,file);
-        Product product = productService.addProductByCategory(dto, categoryId);
-        return ResponseEntity.ok(product);
-    }*/
-
-    @PostMapping(value = "/addProductByCategory/{categoryId}", consumes = "multipart/form-data")
-    public ResponseEntity<Product> addProductByCategory(@RequestParam("file") MultipartFile file,
-                                                        @RequestParam("name") String name,
-                                                        @RequestParam("price") Double price,
-                                                        @PathVariable Long categoryId) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         String uploadDir = "products-photos/";
         FileUploadUtil.saveFile(uploadDir, fileName, file);
@@ -80,6 +59,27 @@ public class ProductController {
         dto.setPrice(price);
         dto.setPhoto(fileName);
 
+        Product product = productService.save(dto);
+        return ResponseEntity.ok(product);
+    }
+
+
+    @PostMapping(value = "/addProductByCategory/{categoryId}", consumes = "multipart/form-data")
+    public ResponseEntity<Product> addProductByCategory(@RequestParam("file") MultipartFile file,
+                                                        @RequestParam("name") String name,
+                                                        @RequestParam("price") Double price,
+                                                        @PathVariable Long categoryId) throws IOException {
+        // Enregistrer le nouveau fichier image dans le système de fichiers
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        String uploadDir = "products-photos/";
+        FileUploadUtil.saveFile(uploadDir, fileName, file);
+
+        ProductDto dto = new ProductDto();
+        dto.setName(name);
+        dto.setPrice(price);
+        dto.setPhoto(fileName);
+
+        // Enregistrer nouveau objet Product  dans la base de données
         Product product = productService.addProductByCategory(dto, categoryId);
         return ResponseEntity.ok(product);
     }
@@ -93,16 +93,41 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        product.setId(id);
-        Product updatedProduct = productService.update(product);
-        if (updatedProduct != null) {
-            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    @PutMapping(value = "/{id}", consumes = "multipart/form-data")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id,
+                                                 @RequestParam(value = "file", required = false) MultipartFile file,
+                                                 @RequestParam("name") String name,
+                                                 @RequestParam("price") Double price) throws IOException {
+
+
+        Product existingProduct = productService.getById(id);
+        if (existingProduct == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        try {
+
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            String uploadDir = "products-photos/";
+            FileUploadUtil.saveFile(uploadDir, fileName, file);
+
+            // Mettre à jour l'objet Product
+            existingProduct.setName(name);
+            existingProduct.setPrice(price);
+            existingProduct.setPhoto(fileName);
+
+            // Enregistrer l'objet Product mis à jour dans la base de données
+            Product updatedProduct = productService.update(existingProduct);
+
+            return ResponseEntity.ok(updatedProduct);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
