@@ -18,8 +18,7 @@ public class CartRestController {
 
     @PostMapping()// http://localhost:8090/api/carts
     public ResponseEntity<Cart> addCart(@RequestBody CartDTO cartDTO) {
-        Cart newCart = cartService.createCart(cartDTO);
-        return ResponseEntity.ok(newCart);
+        return ResponseEntity.ok(cartService.createCart(cartDTO));
     }
 
     @GetMapping(("/order/{orderId}"))// http://localhost:8090/api/carts/order/$

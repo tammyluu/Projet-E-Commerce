@@ -48,4 +48,9 @@ public class OrderServiceImpl implements IOrderService {
     public List<Order> getOrderByConsumerId(Long consumerID) {
         return orderRepository.findAllByConsumer_Id(consumerID);
     }
+
+    @Override
+    public Order getOrderByConsumerIdAndStatusOrderPending(Long customerID) {
+        return orderRepository.findOrderByConsumer_IdAndStatusOrder(customerID, StatusOrder.PENDING);
+    }
 }

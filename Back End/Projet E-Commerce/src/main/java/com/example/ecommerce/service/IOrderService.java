@@ -13,4 +13,5 @@ public interface IOrderService {
     void deleteOrder(Long orderId);
     Order getOrderById(Long orderId);
     List<Order> getOrderByConsumerId(Long consumerID);
+    Order getOrderByConsumerIdAndStatusOrderPending(Long customerID);
 }
