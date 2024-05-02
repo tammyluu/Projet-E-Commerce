@@ -2,7 +2,6 @@ package com.example.ecommerce.controller;
 
 import com.example.ecommerce.dto.CategoryDto;
 import com.example.ecommerce.entity.Category;
-import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.error.exception.ProductNotFoundException;
 import com.example.ecommerce.service.impl.CategoryServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
@@ -33,7 +32,6 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
-
         try {
             Category category = categoryService.getById(id);
             return ResponseEntity.ok(category);

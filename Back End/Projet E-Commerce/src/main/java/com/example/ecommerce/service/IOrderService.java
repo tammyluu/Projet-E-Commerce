@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface IOrderService {
 
-    ResponseEntity<Order> createOrder(OrderDTO orderDTO);
-    ResponseEntity<Order> updateOrder(Order order);
-    ResponseEntity deleteOrder(Long orderId);
-    ResponseEntity<Order> getOrderById(Long orderId);
-    ResponseEntity<List<Order>> getOrderByConsumerId(Long consumerID);
+    Order createOrder(OrderDTO orderDTO);
+    Order updateOrder(Order order);
+    void deleteOrder(Long orderId);
+    Order getOrderById(Long orderId);
+    List<Order> getOrderByConsumerId(Long consumerID);
 }
