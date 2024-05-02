@@ -93,3 +93,24 @@ header .rightArea .login a, header .rightArea .cart a{
   height: 100%;
   
 }
+/* FIn de page d'inscription/connexion */
+.productItem {
+  border: solid black 1px;
+  margin: 20px;
+  height: 200px;
+  display: flex; 
+  flex-direction: column;
+  width: 28%;
+  padding-top: calc(var(--bs-gutter-x)* .5);
+  padding-bottom: calc(var(--bs-gutter-x)* .5);
+  
+}
+.productPhoto{
+  height: 80%;
+  width: 100%;
+  background-color: grey;
+}
+.productBtn{
+  display: flex;
+  justify-content: space-between;
+}

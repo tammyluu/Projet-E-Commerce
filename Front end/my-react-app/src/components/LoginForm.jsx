@@ -29,7 +29,7 @@ function Login() {
                         </div>
                         
                         <Link to={"/register"} className="redirect">
-                        <p >Pas encore inscrit ?</p>
+                            <p>Pas encore inscrit ?</p>
                         </Link>
                     </div>
                 </div>
