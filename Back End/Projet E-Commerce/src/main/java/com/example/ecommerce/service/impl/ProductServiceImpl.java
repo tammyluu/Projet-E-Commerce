@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements IBaseService<Product> {
 
-    private IProductRepository productRepository;
-    private ICategoryRepository categoryRepository;
+    private final IProductRepository productRepository;
+    private final ICategoryRepository categoryRepository;
     @Autowired
     public ProductServiceImpl(IProductRepository productRepository,ICategoryRepository categoryRepository)
     {
@@ -30,7 +30,6 @@ public class ProductServiceImpl implements IBaseService<Product> {
                 .builder()
                 .name(dto.getName())
                 .price(dto.getPrice())
-                .photo()
                 .build();
         return productRepository.save(product);
     }
@@ -69,7 +68,6 @@ public class ProductServiceImpl implements IBaseService<Product> {
             productRepository.delete(existProduct);
         }else {
             throw new ProductNotFoundException(id);
-
         }
 
     }
@@ -91,6 +89,10 @@ public class ProductServiceImpl implements IBaseService<Product> {
             return productRepository.save(newProduct);
         }
 
+    }
+
+    public List<Product> getAllProductsByCategoryId(Long categoryId) {
+        return productRepository.findAllByCategory_Id(categoryId);
     }
 
 }
