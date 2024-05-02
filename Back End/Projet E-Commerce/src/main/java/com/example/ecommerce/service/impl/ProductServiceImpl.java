@@ -7,32 +7,32 @@ import com.example.ecommerce.error.exception.ProductNotFoundException;
 import com.example.ecommerce.repository.ICategoryRepository;
 import com.example.ecommerce.repository.IProductRepository;
 import com.example.ecommerce.service.IBaseService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 
 @Service
 public class ProductServiceImpl implements IBaseService<Product> {
-
-    private IProductRepository productRepository;
-    private ICategoryRepository categoryRepository;
     @Autowired
-    public ProductServiceImpl(IProductRepository productRepository,ICategoryRepository categoryRepository)
-    {
-        this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
-    }
+    private IProductRepository productRepository;
+    @Autowired
+    private ICategoryRepository categoryRepository;
+
 
 
     public  Product save (ProductDto dto){
-        Product product = Product
-                .builder()
-                .name(dto.getName())
-                .price(dto.getPrice())
-                .photo()
-                .build();
-        return productRepository.save(product);
+
+            Product newProduct = Product
+                    .builder()
+                    .name(dto.getName())
+                    .price(dto.getPrice())
+                    .photo(dto.getPhoto())
+                    .build();
+            return productRepository.save(newProduct);
+
     }
 
 
@@ -57,6 +57,7 @@ public class ProductServiceImpl implements IBaseService<Product> {
         if (existProduct != null) {
             existProduct.setName(e.getName());
             existProduct.setPrice(e.getPrice());
+            existProduct.setPhoto(e.getPhoto());
             return productRepository.save(existProduct);
         }
         return null;
@@ -87,6 +88,7 @@ public class ProductServiceImpl implements IBaseService<Product> {
             Product newProduct = new Product();
             newProduct.setName(Dto.getName());
             newProduct.setPrice(Dto.getPrice());
+            newProduct.setPhoto(Dto.getPhoto());
             newProduct.setCategory(category);
             return productRepository.save(newProduct);
         }

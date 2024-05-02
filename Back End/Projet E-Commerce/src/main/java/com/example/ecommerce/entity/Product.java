@@ -2,6 +2,7 @@ package com.example.ecommerce.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,8 +24,10 @@ public class Product {
 
     private Double price;
     @Lob
-    @Column(name = "photo")
-    private  byte[] photo;
+    private  String photo;
+
+    @Transient //no link with DB
+    private MultipartFile file;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
