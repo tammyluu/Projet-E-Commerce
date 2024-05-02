@@ -7,13 +7,17 @@ function Header() {
 
     return( 
     <>
-        <header>
+        <header className="mb-5">
             <div className="leftArea" >
-                <img src="src/images/lignes-doptions.png" onClick={() => setBurger(!burger)} alt="categories" height={50} />
+                <img src="/src/images/lignes-doptions.png" onClick={() => setBurger(!burger)} alt="categories" height={50} />
                 {
-                burger && <div className="dropdown">
+                burger && 
+                <NavLink
+                to={"/products"}>
+                    <div className="dropdown">
                     Nos produits
-                </div>
+                    </div>
+                </NavLink>
             } </div>
             
             <div className="rightArea">
@@ -22,13 +26,13 @@ function Header() {
                     to={"/login" }
                     className={({isActive})=>isActive }
                     >
-                        <img src="src/images/utilisateur.png" alt="photo d'utilisateur" height={50} />
+                        <img src="/src/images/utilisateur.png" alt="photo d'utilisateur" height={50} />
                         <p>Me connecter</p>
                     </NavLink>
                 </div>
                 <div className="cart">
                     <NavLink>
-                        <img src="src/images/chariot-de-chariot.png" alt="panier" height={50}/>
+                        <img src="/src/images/chariot-de-chariot.png" alt="panier" height={50}/>
                         <p>Mon panier</p>
                     </NavLink>
                 </div>

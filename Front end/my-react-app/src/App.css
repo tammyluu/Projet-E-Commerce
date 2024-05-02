@@ -17,6 +17,11 @@ header{
   background-color: #094D17;
   align-items: center;
   color: white;
+  
+}
+header .rightArea a:hover {
+  scale: 1.1;
+  font-weight: bold;
 }
 header .leftArea{
   margin-left: 20px;
@@ -27,6 +32,14 @@ header .leftArea{
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+header .leftArea a{
+color: white;
+text-decoration: none;
+}
+header .leftArea a:hover{
+  font-weight: bold;
+
 }
 header .rightArea{
   height: 75px;
@@ -94,6 +107,7 @@ header .rightArea .login a, header .rightArea .cart a{
   
 }
 /* FIn de page d'inscription/connexion */
+/* Produits list */
 .productItem {
   border: solid black 1px;
   margin: 20px;
@@ -108,9 +122,22 @@ header .rightArea .login a, header .rightArea .cart a{
 .productPhoto{
   height: 80%;
   width: 100%;
-  background-color: grey;
+  background-color: grey;  /* A SUPPRIMER QUAND ON AJOUETERA LES VRAI IMAGE AVEC DES BALISE IMG*/
 }
 .productBtn{
   display: flex;
   justify-content: space-between;
+}
+/* Vue produit */
+.photo {
+  background-color: grey;
+  height: 500px; /* A SUPPRIMER QUAND ON AJOUETERA LES VRAI IMAGE AVEC DES BALISE IMG*/
+}
+.addCart{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.productDesciption{
+  position: relative;
 }

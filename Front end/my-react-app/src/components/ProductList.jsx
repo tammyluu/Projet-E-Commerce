@@ -1,5 +1,7 @@
 import React from "react";
 import Header from "./Header";
+import { Link, useParams } from "react-router-dom";
+
 // Je n'arrive pas a importer quand sa vien d'autre page
 const products = [
     {
@@ -50,7 +52,7 @@ const products = [
     }
     
 ];
-const categorys = [
+const categories = [
     {
         "id":1,
         "name": "Vetements"
@@ -62,6 +64,14 @@ const categorys = [
 ]
 
 function ProductList() {
+    
+        const { id } = useParams();
+      
+        // Filtrer les produits par catégorie
+        const filteredProducts = id
+          ? products.filter(product => product["category-id"] == id)
+          : products;
+          
     return (
         <>
             <Header />
@@ -70,25 +80,29 @@ function ProductList() {
                     <div class="container">
                         <div class="row">
                         <div className="col-md-3 categoryList">
-                            <h2>Category</h2>
-                            {categorys.map(category => (
-                              <div> 
-                                {category.name}
-                              </div>  
-                            ))}
+                        <h2>Category</h2>
+                        <ul>
+                        {categories.map(category => (
+                            <li key={category.id}>
+                            <Link to={`/category/${category.id}/products`}>{category.name}</Link>
+                            </li>
+                        ))}
+                        </ul>
+                            
                         </div>
                         <div className="col-md-9">
                             <h2>Product List</h2>
                             <div className="row">
-                                {products.map(product => (
-                                    <div class="col-md-3 productItem" key={product.id}>
-                                        <span className="productPhoto"></span>
-                                            <span>{product.name} {product.price} </span>
-                                            <span></span>
-                                        <div className="productBtn">
-                                            <div className="btn btn-primary"> Voir l'article</div>
-                                            <div className="btn btn-success">+</div>
-                                        </div>
+                                {filteredProducts.map(product => (
+                                    <div className="col-md-3 productItem" key={product.id}>
+                                    <span className="productPhoto"></span>
+                                    <span>{product.name} {product.price}</span>
+                                    <div className="productBtn">
+                                        <Link to={`/product/${product.id}`}>
+                                         <div className="btn btn-primary"> Voir l'article</div>
+                                        </Link>
+                                        <div className="btn btn-success">+</div>
+                                    </div>
                                     </div>
                                 ))}
                             </div>
