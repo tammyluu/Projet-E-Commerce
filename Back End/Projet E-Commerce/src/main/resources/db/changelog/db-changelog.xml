@@ -1,0 +1,108 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="luuta (generated)" id="1715947072141-1">
+        <createTable tableName="cart">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="current_price" type="DOUBLE"/>
+            <column name="quantity" type="INT"/>
+            <column name="order_id" type="BIGINT"/>
+            <column name="product_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-2">
+        <createTable tableName="cart_seq">
+            <column name="next_val" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-3">
+        <createTable tableName="category">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-4">
+        <createTable tableName="category_seq">
+            <column name="next_val" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-5">
+        <createTable tableName="consumer">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="full_name" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-6">
+        <createTable tableName="orders">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date_order" type="datetime"/>
+            <column name="status_order" type="TINYINT(3)"/>
+            <column name="consumer_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-7">
+        <createTable tableName="orders_seq">
+            <column name="next_val" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-8">
+        <createTable tableName="product">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price" type="DOUBLE"/>
+            <column name="category_id" type="BIGINT"/>
+            <column name="photo" type="TINYTEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-9">
+        <createTable tableName="product_seq">
+            <column name="next_val" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-10">
+        <createIndex indexName="FK1mtsbur82frn64de7balymq9s" tableName="product">
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-11">
+        <createIndex indexName="FK3d704slv66tw6x5hmbm6p2x3u" tableName="cart">
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-12">
+        <createIndex indexName="FK3xdjlr8pvm6waf3brpkvrcc6d" tableName="cart">
+            <column name="order_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-13">
+        <createIndex indexName="FK9ma3wbt68mjlhd5ikijy7nvjh" tableName="orders">
+            <column name="consumer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-14">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="product" constraintName="FK1mtsbur82frn64de7balymq9s" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="category" validate="true"/>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-15">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="cart" constraintName="FK3d704slv66tw6x5hmbm6p2x3u" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="product" validate="true"/>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-16">
+        <addForeignKeyConstraint baseColumnNames="order_id" baseTableName="cart" constraintName="FK3xdjlr8pvm6waf3brpkvrcc6d" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="orders" validate="true"/>
+    </changeSet>
+    <changeSet author="luuta (generated)" id="1715947072141-17">
+        <addForeignKeyConstraint baseColumnNames="consumer_id" baseTableName="orders" constraintName="FK9ma3wbt68mjlhd5ikijy7nvjh" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="consumer" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
